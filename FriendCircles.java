@@ -30,5 +30,3 @@ public class FriendCircles {
 		return res;
 	}
 }
-
-// test git
