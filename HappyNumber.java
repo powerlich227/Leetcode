@@ -5,7 +5,7 @@ public class HappyNumber {
 		System.out.println();
 	}
 	public boolean isHappy(int n) {
-		HashSet set = new HashSet<>();
+		HashSet<Integer> set = new HashSet<>();
 		while (n != 1) {
 			int sum = 0;
 			while (n != 0) {
