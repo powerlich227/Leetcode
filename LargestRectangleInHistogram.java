@@ -18,10 +18,10 @@ public class LargestRectangleInHistogram {
 //				res = Math.max(res, heights[cur] * width);
 //				i--;
 //			}
-			while (!st.empty() && heights[st.peek()] > heights[i]) {
+			while (!st.empty() && newHeights[st.peek()] > newHeights[i]) {
 				int cur = st.pop();
 				int width = st.empty() ? i : i - st.peek() - 1;
-				res = Math.max(res, heights[cur] * width);
+				res = Math.max(res, newHeights[cur] * width);
 			}
 			st.push(i);
 		}
