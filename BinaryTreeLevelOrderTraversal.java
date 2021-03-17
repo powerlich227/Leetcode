@@ -4,6 +4,9 @@ public class BinaryTreeLevelOrderTraversal {
 	public static void main(String[] args) {
 		System.out.println();
 	}
+	/*
+	 * Queue
+	 */
 	public List<List<Integer>> levelOrder(TreeNode root) {
 		List<List<Integer>> res = new ArrayList<>();
 		if (root == null)
@@ -24,6 +27,10 @@ public class BinaryTreeLevelOrderTraversal {
 		}
 		return res;
 	}
+	/*
+	 * BFS 
+	 * Recursion
+	 */
 	public List<List<Integer>> levelOrder2(TreeNode root) {
 		List<List<Integer>> res = new ArrayList<>();
 		helper(root, 0, res);
