@@ -32,12 +32,12 @@ public class KthLargestElementInAnArray {
 		int n = nums.length, l = 0, r = n - 1;
 		while (true) {
 			int pos = helper(nums, l, r);
-			if (pos == k - 1)
+			if (pos == n - k)
 				return nums[pos];
-			if (pos > k)
-				r = pos - 1;
-			else
+			if (pos > n - k)
 				l = pos + 1;
+			else 
+				r = pos - 1;
 		}
 	}
 	
@@ -56,6 +56,8 @@ public class KthLargestElementInAnArray {
 				r--;
 			}				
 		}
+		nums[right] = nums[l];
+        nums[l] = pivot;
 		return l;
 	}
 }
