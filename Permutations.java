@@ -1,4 +1,31 @@
 import java.util.*;
+/*
+ * 
+ * LeetCode 46 Medium
+ * 
+ * Permutations
+ *
+ * Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+ * 
+ *  
+Example 1:
+Input: nums = [1,2,3]
+Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+
+Example 2:
+Input: nums = [0,1]
+Output: [[0,1],[1,0]]
+
+Example 3:
+Input: nums = [1]
+Output: [[1]]
+ 
+Constraints:
+
+1 <= nums.length <= 6
+-10 <= nums[i] <= 10
+All the integers of nums are unique.
+ */
 public class Permutations {
 	public static void main(String[] args) {
 		int[] nums = {1, 2, 3};
@@ -6,33 +33,23 @@ public class Permutations {
 	}
 	// DFS
 	public static List<List<Integer>> permute(int[] nums) {
-		List<List<Integer>> res = new ArrayList<>();
-		List<Integer> out = new ArrayList<>();
-		int[] visited = new int[nums.length];
-		Arrays.fill(visited, 0);
-		helper(nums, 0, out, visited, res);
+		List<List<Integer>> res = new LinkedList<>();
+		LinkedList<Integer> track = new LinkedList<>();
+		helper(nums, track, res);
 		return res;
 	}
-	public static void helper(int[] nums, int level, List<Integer> out, int[] visited, List<List<Integer>> res) {
-		if (level >= nums.length) {
-			System.out.println(level + " " + out + " saved" + " ");
-			res.add(new ArrayList<>(out));
+	public static void helper(int[] nums, LinkedList<Integer> track, List<List<Integer>> res) {
+		if (track.size() == nums.length) {
+			res.add(new LinkedList<>(track));
 			return;
 		}
 		for (int i = 0 ; i < nums.length; i++) {
-			System.out.print(level + " " + i + " " + out + " ");
-			if (visited[i] == 1) {
-				System.out.println("skip 1");
+			if (track.contains(nums[i])) {
 				continue;
 			}
-			System.out.println();
-			visited[i] = 1;
-			out.add(nums[i]);
-			helper(nums, level + 1, out, visited, res);
-			out.remove(out.size() - 1);
-			visited[i] = 0;
-			System.out.println(level + " " + i + " " + out + " recovered");
+			track.add(nums[i]);
+			helper(nums, track, res);
+			track.removeLast();
 		}
 	}
-
 }
