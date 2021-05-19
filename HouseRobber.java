@@ -68,6 +68,20 @@ public class HouseRobber {
 		memo[start] = res;
 		return res;
 	}
+	
+	// iteration (optimized space)
+	public int rob3(int[] nums) {
+		int n = nums.length;
+		if (n == 1)
+			return nums[0];
+		int a = nums[0], b = Math.max(a, nums[1]), dp = b;
+		for (int i = 2; i < n; i++) {
+			dp = Math.max(a + nums[i], b);
+			a = b;
+			b = dp;
+		}
+		return dp;
+	}
 	public static void main(String[] args) {
 		HouseRobber test = new HouseRobber();
 		int[] nums = {1, 2, 3, 1}, nums2 = {2, 7, 9, 3, 1};
@@ -75,5 +89,7 @@ public class HouseRobber {
 		System.out.println(test.rob(nums2));
 		System.out.println(test.rob2(nums));
 		System.out.println(test.rob2(nums2));
+		System.out.println(test.rob3(nums));
+		System.out.println(test.rob3(nums2));
 	}
 }
