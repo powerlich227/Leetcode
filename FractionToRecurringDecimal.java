@@ -39,6 +39,7 @@ denominator != 0
 public class FractionToRecurringDecimal {
 	// str += numerator / denominator, rem = numerator % denominator
 	// str += (rem * 10) / denominator, rem = (rem * 10) % denominator
+	// HashMap(rem, length) to insert '('
 	public String fractionToDecimal(int numerator, int denominator) {
 		if (numerator == 0)
 			return "0";
