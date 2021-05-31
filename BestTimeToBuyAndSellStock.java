@@ -40,21 +40,27 @@ public class BestTimeToBuyAndSellStock {
 		}
 		return res;
 	}
+	
 	// DP
 	// dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
 	// dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+	// base cases:
 	// dp[-1][k][0] = 0, dp[-1][k][1] = Integer.MIN_VALUE;
 	// dp[i][0][0] = 0, dp[i][0][1] = Integer.MIN_VALUE;
 	
 	// k = 1
 	/* 
+	 * dp[i][1][0] = Math.max(dp[i - 1][1][0], dp[i - 1][1][1] + prices[i])
+	 * dp[i][1][1] = Math.max(dp[i - 1][1][1], dp[i-1][0][0] - prices[i]) // dp[i-1][0][0] = 0
+	 * 
 	 * dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1] + prices[i])
-	 * dp[i][1] = Math.max(dp[i - 1][1], -prices[i])
+	 * dp[i][1] = Math.max(dp[i - 1][1], - prices[i])
+	 * base cases:
 	 * dp[-1][0] = 0, dp[-1][1] = Integer.MIN_VALUE;
 	 * 
-	 * dp_i_0 
+	 * to save the memory
+	 * dp_i_0, dp_i_1
 	 */
-
 	public int maxProfit2(int[] prices) {
 		int n = prices.length, dp_i_0 = 0, dp_i_1 = Integer.MIN_VALUE;
 		for (int i = 0; i < n; i++) {
