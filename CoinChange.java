@@ -31,22 +31,48 @@ Input: coins = [1], amount = 2
 Output: 2
  */
 public class CoinChange {
-	public static int coinChange(int[] coins, int amount) {
+	// DP recursion with memo
+	public int coinChange(int[] coins, int amount) {
+		int[] memo = new int[amount + 1];
+		Arrays.fill(memo, amount + 1);
+		return helper(coins, amount, memo);
+	}
+	public int helper(int[] coins, int amount, int[] memo) {
+		if (amount < 0)
+			return -1;
+		if (amount == 0)
+			return 0;
+		if (memo[amount] < amount + 1)
+			return memo[amount];
+		for (int coin : coins) {
+			int temp = helper(coins, amount - coin, memo);
+			if (temp < 0)
+				continue;
+			memo[amount] = Math.min(memo[amount], temp + 1);
+		}
+		return (memo[amount] == amount + 1) ? -1 : memo[amount];
+	}
+	// DP iteration
+	// DP[i]: # of coins in i amount of money	
+	// DP[i] = min (DP[i], DP[i - coin]
+	public int coinChange2(int[] coins, int amount) {
 		int[] dp = new int[amount + 1];
 		Arrays.fill(dp, amount + 1);
 		dp[0] = 0;
 		for (int i = 1; i <= amount; i++) {
-			for (int j = 0; j < coins.length; j++) {
-				if (coins[j] <= i)
-					dp[i] = Math.min(dp[i - coins[j]] + 1, dp[i]); 
+			for (int coin : coins) {
+				if (coin <= i)
+					dp[i] = Math.min(dp[i - coin] + 1, dp[i]); 
 			}
 		}
 		return (dp[amount] > amount) ? -1 : dp[amount];
 	}
 	public static void main(String[] args) {
-		int[] coins = {1, 2, 5}, coins2 = {2};
-		int amount = 11, amount2 = 3;
-		System.out.println(coinChange(coins, amount));
-		System.out.println(coinChange(coins2, amount2));
+		CoinChange test = new CoinChange();
+		int[] coins = {1, 2, 5}, coins2 = {2}, coins3 = {1};
+		int amount = 11, amount2 = 3, amount3 = 0;
+		System.out.println(test.coinChange(coins, amount));
+		System.out.println(test.coinChange(coins2, amount2));
+		System.out.println(test.coinChange(coins3, amount3));
 	}
 }
