@@ -67,6 +67,8 @@ public class ScrambleString {
         return dp[0][0][m];
     }
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		ScrambleString test = new ScrambleString();
+		System.out.println(test.isScramble("abcde", "caebd"));
+		System.out.println(test.isScramble("great", "rgeat"));
 	}
 }
