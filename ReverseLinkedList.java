@@ -1,4 +1,28 @@
+/*
+ * LeetCode 206 Easy
+ * 
+ * Reverse Linked List
+ * 
+Given the head of a singly linked list, reverse the list, and return the reversed list.
 
+Example 1:
+Input: head = [1,2,3,4,5]
+Output: [5,4,3,2,1]
+
+Example 2:
+Input: head = [1,2]
+Output: [2,1]
+
+Example 3:
+Input: head = []
+Output: []
+ 
+Constraints:
+The number of nodes in the list is the range [0, 5000].
+-5000 <= Node.val <= 5000
+ 
+Follow up: A linked list can be reversed either iteratively or recursively. Could you implement both?
+ */
 public class ReverseLinkedList {
 	public static void main(String[] args) {
 		ListNode a = new ListNode(1);
@@ -7,61 +31,28 @@ public class ReverseLinkedList {
 		a.next = b;
 		b.next = c;
 		c.next = null;
-		System.out.println(reverseList2(a));
+		System.out.println(reverseList(a));
 	}
 	// iteration
-	public ListNode reverseList(ListNode head) {
-		ListNode pre = new ListNode(0);
-		ListNode cur = head;
-        pre.next = head;
+	public static ListNode reverseList(ListNode head) {
+		ListNode pre = null;
+		ListNode cur = head, next = head;
 
-		while(cur != null || cur.next != null) { 
-			ListNode temp = cur.next;
-			cur.next = temp.next;
-			temp.next = pre.next;
-			pre.next = temp;
+		while(cur != null) { 
+			next = cur.next; // update next
+			cur.next = pre; // reverse cur
+			pre = cur; // update pre
+			cur = next; // update cur
 		}		
-		return pre.next;
-		
-//		ListNode pre = null;
-//		ListNode cur = head;
-//
-//		while(cur != null) { 
-//			ListNode temp = cur.next;
-//			cur.next = pre;
-//			pre = cur;
-//			cur = temp;
-//		}		
-//		return pre;
+		return pre;
 	}
 	// recursion
 	public static ListNode reverseList2(ListNode head) {
-//		System.out.println("1 " + head.val);
 		if (head == null || head.next == null)
 			return head;
-		ListNode cur = reverseList2(head.next);
-//		System.out.println("2 " + head.val + cur.val);
-//		if (cur.next != null)
-//			System.out.println("2 " + head.val + cur.val + cur.next.val);
-//		if (cur.next != null && cur.next.next != null)
-//			System.out.println("2 " + head.val + cur.val + cur.next.val + cur.next.next.val);
+		ListNode last = reverseList2(head.next);
 		head.next.next = head;
-		System.out.println("3 " + cur.val);
-//		if (cur.next != null)
-//			System.out.println("3 " + cur.val + cur.next.val);
-//		if (cur.next != null && cur.next.next != null)
-//			System.out.println("3 " + cur.val + cur.next.val + cur.next.next.val);
-//		if (cur.next != null && cur.next.next != null && cur.next.next.next != null)
-//			System.out.println("3 " + cur.val + cur.next.val + cur.next.next.val + cur.next.next.next.val);
-//		if (cur.next.next.next.next != null)
-//			System.out.println("3 " + cur.next.next.next.next.val);
 		head.next = null;
-		System.out.println("4 " + cur.val);
-//		if (cur.next != null)
-//			System.out.println("4 " + cur.val + cur.next.val);
-//		if (cur.next != null && cur.next.next != null)
-//			System.out.println("4 " + cur.val + cur.next.val + cur.next.next.val);
-		return cur;
+		return last;
 	}
-
 }
