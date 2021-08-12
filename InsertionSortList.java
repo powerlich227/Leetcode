@@ -63,6 +63,7 @@ public class InsertionSortList {
 			pre.next = cur;
 			cur = next;
 		}
+		return dummy.next;
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
