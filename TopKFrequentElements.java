@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -28,7 +29,8 @@ Actually: O(k log k)
  */
 
 public class TopKFrequentElements {
-	public static int[] topKFrequent(int[] nums, int k) {
+	// Counting & Map & PQ
+	public int[] topKFrequent(int[] nums, int k) {
 		if (nums.length == k)
 			return nums;
 		int[] res = new int[k];
@@ -46,7 +48,7 @@ public class TopKFrequentElements {
 	public static void main(String[] args) {
 		int[] nums = {1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5};
 		int k = 4;
-		for (int i : topKFrequent(nums, k))
-			System.out.println(i);
+		TopKFrequentElements test = new TopKFrequentElements();
+		System.out.println(Arrays.toString(test.topKFrequent(nums, k)));
 	}
 }
