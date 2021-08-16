@@ -61,7 +61,7 @@ public class MergeTwoSortedLists {
 			return l1;
 		}
 		else {
-			l2.next = MergeTwoLists2(l1, l2.next);
+			l2.next = mergeTwoLists2(l1, l2.next);
 			return l2;
 		}
 	}
