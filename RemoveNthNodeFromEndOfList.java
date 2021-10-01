@@ -27,15 +27,7 @@ Follow up: Could you do this in one pass?
  */
 public class RemoveNthNodeFromEndOfList {
 	public static void main(String[] args) {
-		ListNode a = new ListNode(1);
-		ListNode b = new ListNode(2);
-		ListNode c = new ListNode(3);
-		ListNode d = new ListNode(4);
-		ListNode e = new ListNode(5);
-		a.next = b;
-		b.next = c;
-		c.next = d;
-		d.next = e;
+		
 	}
 	// Two Pointers, pre and cur
 	// cur: to end
@@ -53,7 +45,6 @@ public class RemoveNthNodeFromEndOfList {
 			cur = cur.next;
 		}
 		pre.next = pre.next.next;
-		System.out.println(pre);
 		return head;
 	}
 }
