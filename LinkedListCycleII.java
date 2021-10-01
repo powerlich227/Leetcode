@@ -38,7 +38,7 @@ public class LinkedListCycleII {
 	public static void main(String[] args) {
 		System.out.println();
 	}
-	// two pointer
+	// two pointers
 	public ListNode detectCycle(ListNode head) {
 		ListNode slow = head, fast = head;
 		while (fast != null && fast.next != null) {
@@ -49,6 +49,11 @@ public class LinkedListCycleII {
 		}
 		if (fast == null || fast.next == null)
 			return null;
+		// head to "the node where they meet (slow == fast)": k
+		// "the node where they meet (slow == fast)" to "the node where the cycle begins": m
+		// head to "the node where the cycle begins": k - m
+		// "the node where they meet (slow == fast)" to "the node where the cycle begins": k - m
+		// find the next node where slow == fast 
 		slow = head;
 		while (slow != fast) {
 			slow = slow.next;
