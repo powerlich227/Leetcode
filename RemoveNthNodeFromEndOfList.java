@@ -37,20 +37,21 @@ public class RemoveNthNodeFromEndOfList {
 		c.next = d;
 		d.next = e;
 	}
-	// Two Pointers
+	// Two Pointers, pre and cur
+	// cur: to end
+	// pre: to n + 1 from end of list
 	public ListNode removeNthFromEnd(ListNode head, int n) {
 		if (head == null || head.next == null)
 			return null;
 		ListNode pre = head, cur = head;
 		for (int i = 0; i < n; i++)
 			cur = cur.next;
-		if (cur == null)
+		if (cur == null) // remove head
 			return head.next;
 		while (cur.next != null) {
 			pre = pre.next;
 			cur = cur.next;
 		}
-
 		pre.next = pre.next.next;
 		System.out.println(pre);
 		return head;
