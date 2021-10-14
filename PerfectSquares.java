@@ -1,4 +1,3 @@
-import java.util.*;
 /*
  * LeetCode 279
  * 
@@ -21,19 +20,28 @@ Explanation: 13 = 4 + 9.
  
 Constraints:
 
-1 <= n <= 104
+1 <= n <= 10^4
  */
 public class PerfectSquares {
+	// Lagrange's four square theorem
+	// n = a^2 + ... + d^2 (at most 4 square sum)
+	// return 1 or 2 or 3 or 4
+	// if n%8 = 7, n = a^2 + b^2 + c^2 + d^2, return 4
 	public int numSquares(int n) {
-		while (n % 4 == 0)
+		while (n % 4 == 0) 
 			n /= 4;
-		if (n % 8 == 7)
+		if (n % 8 == 7) // return 4
 			return 4;
 		for (int i = 0; i * i < n; i++) {
 			int j = (int) Math.sqrt(n - i * i);
-			if (i * i + j * j == n)
+			if (i * i + j * j == n) // return 2
 				return (i != 0 && j != 0) ? 2 : 1;
 		}
 		return 3;
+	}
+	public static void main(String[] args) {
+		PerfectSquares test = new PerfectSquares();
+		System.out.println(test.numSquares(12));
+		System.out.println(test.numSquares(13));
 	}
 }
