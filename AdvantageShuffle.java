@@ -59,5 +59,4 @@ public class AdvantageShuffle {
 		System.out.println(Arrays.toString(test.advantageCount(new int[] {2, 7, 11, 15}, new int[] {1, 10, 4, 11})));
 		System.out.println(Arrays.toString(test.advantageCount(new int[] {12, 24, 8, 32}, new int[] {13, 25, 32, 11})));
 	}
-
 }
