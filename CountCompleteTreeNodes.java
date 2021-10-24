@@ -25,16 +25,34 @@ Output: 1
 
 Constraints:
 
-The number of nodes in the tree is in the range [0, 5 * 104].
+The number of nodes in the tree is in the range [0, 5 * 10^4].
 0 <= Node.val <= 5 * 10^4
 The tree is guaranteed to be complete.
  */
 public class CountCompleteTreeNodes {
-	// Recursion
+	// Recursion/DFS
+//	public int countNodes(TreeNode root) {
+//		return (root == null) ? 0 : (1 + countNodes(root.left) + countNodes(root.right));
+//	}
+	// Recursion2/DFS O(logn*logn)
 	public int countNodes(TreeNode root) {
-		return (root == null) ? 0 : (1 + countNodes(root.left) + countNodes(root.right));
+		int left = leftHeight(root.left);
+		int right = rightHeight(root.right);
+		if (left == right)
+			return (int) (Math.pow(2, left) - 1);
+		return countNodes(root.left) + countNodes(root.right) + 1;
 	}
-	// Binary Search
+	public int leftHeight(TreeNode root) {
+		if (root == null)
+			return 0;
+		return leftHeight(root.left) + 1;
+	}
+	public int rightHeight(TreeNode root) {
+		if (root == null)
+			return 0;
+		return rightHeight(root.right) + 1;
+	}
+	// Binary Search O(logn)
 	// left child vs right child
 	public int countNodes2(TreeNode root) {
 		int res = 0;
