@@ -21,7 +21,6 @@ Input: nums = [1]
 Output: [[1]]
  
 Constraints:
-
 1 <= nums.length <= 6
 -10 <= nums[i] <= 10
 All the integers of nums are unique.
@@ -29,16 +28,17 @@ All the integers of nums are unique.
 public class Permutations {
 	public static void main(String[] args) {
 		int[] nums = {1, 2, 3};
-		System.out.println(permute(nums));
+		Permutations test = new Permutations();
+		System.out.println(test.permute(nums));
 	}
 	// DFS
-	public static List<List<Integer>> permute(int[] nums) {
-		List<List<Integer>> res = new LinkedList<>();
-		LinkedList<Integer> track = new LinkedList<>();
+	public List<List<Integer>> permute(int[] nums) {
+		List<List<Integer>> res = new ArrayList<>();
+		List<Integer> track = new ArrayList<>();
 		helper(nums, track, res);
 		return res;
 	}
-	public static void helper(int[] nums, LinkedList<Integer> track, List<List<Integer>> res) {
+	public void helper(int[] nums, List<Integer> track, List<List<Integer>> res) {
 		if (track.size() == nums.length) {
 			res.add(new LinkedList<>(track));
 			return;
@@ -49,7 +49,7 @@ public class Permutations {
 			}
 			track.add(nums[i]);
 			helper(nums, track, res);
-			track.removeLast();
+			track.remove(track.size() - 1);
 		}
 	}
 }
