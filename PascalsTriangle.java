@@ -34,7 +34,7 @@ public class PascalsTriangle {
         first.add(1);
 		res.add(first);
 
-        List<Integer> pre = new ArrayList<>();
+        List<Integer> pre = new ArrayList<>(first);
     	for (int i = 1; i < numRows; i++) {
     		List<Integer> cur = new ArrayList<>();
     		cur.add(1);
