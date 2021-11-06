@@ -29,17 +29,20 @@ Constraints:
 Each integer in nums will appear twice, only two integers will appear once.
  */
 public class SingleNumberIII {
+	// Bit manipulation
+	// a^0=a, a^a=0
+	// a & (-a): different bit
 	public int[] singleNumber(int[] nums) {
 		int diff = 0;
 		for (int num : nums)
 			diff ^= num; // get XOR of 2 numbers we need to find
-		diff &= - diff; // get its last set bit
+		diff &= - diff; // get their last different bit
 		
 		int[] res = new int[2];
 		for (int num : nums) {
-			if ((num & diff) == 0)
+			if ((num & diff) == 0) // for one number
 				res[0] ^= num;
-			else
+			else // for another number
 				res[1] ^= num;
 		}
 		return res;
