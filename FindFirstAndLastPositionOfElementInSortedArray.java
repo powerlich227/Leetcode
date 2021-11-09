@@ -33,41 +33,44 @@ nums is a non-decreasing array.
  */
 public class FindFirstAndLastPositionOfElementInSortedArray {
 	public static void main(String[] args) {
+		FindFirstAndLastPositionOfElementInSortedArray test = new FindFirstAndLastPositionOfElementInSortedArray();
 		int[] nums = {5,7,7,8,8,10}, nums2 = {};
 		int target = 8, target2 = 6, target3 = 0;
-		System.out.println(Arrays.toString(searchRange(nums, target)));
-		System.out.println(Arrays.toString(searchRange(nums, target2)));
-		System.out.println(Arrays.toString(searchRange(nums2, target3)));
+		System.out.println(Arrays.toString(test.searchRange(nums, target)));
+		System.out.println(Arrays.toString(test.searchRange(nums, target2)));
+		System.out.println(Arrays.toString(test.searchRange(nums2, target3)));
 	}
-	public static int[] searchRange(int[] nums, int target) {
+    // Binary Search
+    public int[] searchRange(int[] nums, int target) {
 		int[] res = {-1, -1};
 		if (nums == null)
 			return res;
-		
-		int left = 0, right = nums.length;
-		while (left < right) {
+		int left = 0, right = nums.length; // [left, right)
+		while (left < right) { // First Position
 			int mid = left + (right - left) / 2;
-			if (nums[mid] == target)
-				right = mid;
+            if (nums[mid] == target)
+                right = mid;
 			else if (nums[mid] < target)
 				left = mid + 1;
 			else if (nums[mid] > target)
 				right = mid;
 		}
-		if (right == nums.length || nums[right] != target)
+		if (left == nums.length || nums[left] != target)
 			return res;
 		res[0] = left;
 		
 		right = nums.length;
-		while (left < right) {
+		while (left < right) { // Last Position
 			int mid = left + (right - left) / 2;
-			if (nums[mid] == target)
-				left = mid + 1;
+            if (nums[mid] == target)
+                left = mid + 1;
 			else if (nums[mid] < target)
 				left = mid + 1;
 			else if (nums[mid] > target)
 				right = mid;
 		}
+			// if (right == nums.length || nums[right] != target)
+			// return res;
 		res[1] = right - 1;
 		return res;
 	}
