@@ -39,6 +39,11 @@ public class FindTheDuplicateNumber {
 		System.out.println(test.findDuplicate(new int[] {1, 3, 4, 2, 2}));
 		System.out.println(test.findDuplicate(new int[] {3, 1, 3, 4, 2}));
 		System.out.println(test.findDuplicate(new int[] {1, 1}));
+		System.out.println(test.findDuplicate(new int[] {1, 1, 2}));
+		System.out.println(test.findDuplicate2(new int[] {1, 3, 4, 2, 2}));
+		System.out.println(test.findDuplicate2(new int[] {3, 1, 3, 4, 2}));
+		System.out.println(test.findDuplicate2(new int[] {1, 1}));
+		System.out.println(test.findDuplicate2(new int[] {1, 1, 2}));
 	}
 	// follow up 1: pigeonhole theory
 	// follow up 2: O(n)
@@ -54,6 +59,8 @@ public class FindTheDuplicateNumber {
                          ^                       |
                          |                       |
                          +-----------------------+
+     x_{l'} = x_{2l'}
+                  
 	 */
 	public int findDuplicate(int[] nums) {
 		int slow = 0, fast = 0;
@@ -71,5 +78,25 @@ public class FindTheDuplicateNumber {
 				break;
 		}
 		return slow;	
+	}
+	
+	// binary search, pigeonhole theory
+	// left, right: value in the nums, not indice.
+	public int findDuplicate2(int[] nums) {
+		int n = nums.length;
+		int left = 1, right = n - 1;
+		while (left < right) {
+			int mid = left + (right - left) / 2;
+			int cnt = 0;
+			for (int num : nums) {
+				if (num <= mid)
+					cnt++;
+			}
+			if (cnt <= mid)
+				left = mid + 1;
+			else if (cnt > mid)
+				right = mid;
+		}
+		return left;
 	}
 }
