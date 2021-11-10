@@ -43,6 +43,18 @@ public class FindTheDuplicateNumber {
 	// follow up 1: pigeonhole theory
 	// follow up 2: O(n)
 	// Two Pointers: slow, fast
+	
+	/*      x_0     = k (for some k)
+    		x_1     = f(x_0)
+    		x_2     = f(f(x_0))
+    		...
+    		x_{n+1} = f(x_n)
+    		
+    x_0 -> x_1 -> ... x_k -> x_{k+1} ... -> x_{k+j}
+                         ^                       |
+                         |                       |
+                         +-----------------------+
+	 */
 	public int findDuplicate(int[] nums) {
 		int slow = 0, fast = 0;
 		while (true) {
@@ -51,11 +63,11 @@ public class FindTheDuplicateNumber {
 			if (slow == fast)
 				break;
 		}
-		int t = 0;
+		slow = 0;
 		while (true) {
 			slow = nums[slow];
-			t = nums[t];
-			if (slow == t)
+			fast = nums[fast];
+			if (slow == fast)
 				break;
 		}
 		return slow;	
