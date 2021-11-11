@@ -29,7 +29,10 @@ Constraints:
  */
 public class ThreeSum {
 	public static void main(String[] args) {
-		System.out.println();
+		ThreeSum test = new ThreeSum();
+		System.out.println(test.threeSum(new int[] {-1,0,1,2,-1,-4}));
+		System.out.println(test.threeSum(new int[] {}));
+		System.out.println(test.threeSum(new int[] {0}));
 	}
 	// 3 sum, target = 0
 	// Two Pointers: left & right
