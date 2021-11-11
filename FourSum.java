@@ -26,12 +26,14 @@ Constraints:
  */
 public class FourSum {
 	public static void main(String[] args) {
-		System.out.println();
+		FourSum test = new FourSum();
+		System.out.println(test.fourSum(new int[] {1,0,-1,0,-2,2}, 0));
+		System.out.println(test.fourSum(new int[] {2,2,2,2,2}, 8));
 	}
     // 1.Sort 2. BinarySearch: left, right
-    public List<List<Integer>> fourSum(int[] nums) {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
         Arrays.sort(nums);
-        return nSumTarget(nums, 4, 0, 0);
+        return nSumTarget(nums, 4, 0, target);
     }
     // Recursion
     public List<List<Integer>> nSumTarget(int[] nums, int n, int start, int target) {
