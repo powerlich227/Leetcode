@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /*
@@ -6,17 +7,16 @@ import java.util.List;
  * 
  * Find All Anagrams In a String
  * 
- * Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
+Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
 
 Example 1:
-
 Input: s = "cbaebabacd", p = "abc"
 Output: [0,6]
 Explanation:
 The substring with start index = 0 is "cba", which is an anagram of "abc".
 The substring with start index = 6 is "bac", which is an anagram of "abc".
-Example 2:
 
+Example 2:
 Input: s = "abab", p = "ab"
 Output: [0,1,2]
 Explanation:
@@ -24,46 +24,47 @@ The substring with start index = 0 is "ab", which is an anagram of "ab".
 The substring with start index = 1 is "ba", which is an anagram of "ab".
 The substring with start index = 2 is "ab", which is an anagram of "ab".
  
-
 Constraints:
-
 1 <= s.length, p.length <= 3 * 10^4
 s and p consist of lowercase English letters.
  */
 public class FindAllAnagramsInAString {
-	public static List<Integer> findAnagrams(String s, String p) {
+    // Sliding Window
+    public List<Integer> findAnagrams(String s, String p) {
 		List<Integer> res = new ArrayList<>();
-		int[] hash = new int[256]; // ASCII
-		
-		int m = s.length(), n = p.length(), l = 0, r = 0;
-		for (int i = 0; i < n; i++) {
-			char c = p.charAt(i);
-			hash[c]++;
+		HashMap<Character, Integer> mapS = new HashMap<>();
+		HashMap<Character, Integer> mapT = new HashMap<>();
+		int m = s.length(), n = p.length();
+        int left = 0, right = 0, valid = 0;
+		for (char c : p.toCharArray()) {
+			mapT.put(c, mapT.getOrDefault(c, 0) + 1);
 		}
-		while (r < m) {
-			if (hash[s.charAt(r)] >= 1)
-				n--;
-			hash[s.charAt(r)]--;
-			r++;
+		while (right < m) {
+			char r = s.charAt(right);
+			mapS.put(r, mapS.getOrDefault(r, 0) + 1);
+			if (mapS.get(r).equals(mapT.get(r)))
+				valid++;
+			right++;
 			
-			if (n == 0)
-				res.add(l);
-			
-			if (r - l == p.length()) {
-				if (hash[s.charAt(l)] >= 0) {
-					n++;
+			while (right - left >= n) {
+				if (valid == mapT.size())
+					res.add(left);
+				char l = s.charAt(left);
+				if (mapT.containsKey(l)) {
+					if (mapS.get(l).equals(mapT.get(l)))
+						valid--;
+					mapS.put(l, mapS.get(l) - 1);
 				}
-				hash[s.charAt(l)]++;
-				l++;
+				left++;
 			}
 		}
 		return res;
 	}
 	public static void main(String[] args) {
+		FindAllAnagramsInAString test = new FindAllAnagramsInAString();
 		String s = "cbaebabacd", s2 = "abab";
 		String p = "abc", p2 = "ab";
-		System.out.println(findAnagrams(s, p));
-		System.out.println(findAnagrams(s2, p2));
+		System.out.println(test.findAnagrams(s, p));
+		System.out.println(test.findAnagrams(s2, p2));
 	}
-
 }
