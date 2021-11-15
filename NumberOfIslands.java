@@ -33,7 +33,6 @@ Output: 3
  
 
 Constraints:
-
 m == grid.length
 n == grid[i].length
 1 <= m, n <= 300
@@ -43,8 +42,34 @@ public class NumberOfIslands {
 	public static void main(String[] args) {
 		System.out.println();
 	}
-	// BFS
+	// DFS
 	public int numIslands(char[][] grid) {
+		int res = 0;
+		int m = grid.length, n = grid[0].length;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (grid[i][j] == '1') {
+					res++;
+					dFS(grid, i, j);
+				}
+					
+			}
+		}
+		return res;
+	}
+	// change grid[i][j] from '1' to '0'
+	public void dFS(char[][] grid, int i, int j) {
+		int m = grid.length, n = grid[0].length;
+		if (i < 0 || i > m || j < 0 || j > m || grid[i][j] == '0')
+			return;
+		grid[i][j] = '0';
+		dFS(grid, i + 1, j);
+		dFS(grid, i, j + 1);
+		dFS(grid, i - 1, j);
+		dFS(grid, i, j - 1);
+	}
+	// BFS
+	public int numIslands2(char[][] grid) {
 		if (grid == null || grid.length == 0)
 			return 0;
 		int m = grid.length, n = grid[0].length;
