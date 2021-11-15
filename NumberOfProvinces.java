@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 /*
  * LeetCode 547 Medium
  * 
@@ -82,5 +85,4 @@ public class NumberOfProvinces {
 		System.out.println(test.findCircleNum(new int[][] {{1,1,0},{1,1,0},{0,0,1}}));
 		System.out.println(test.findCircleNum(new int[][] {{1,0,0},{0,1,0},{0,0,1}}));
 	}
-
 }
