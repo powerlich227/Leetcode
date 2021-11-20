@@ -47,9 +47,25 @@ public class SingleElementInASortedArray {
     	}
         return nums[left];
     }
+    // Binary Search with Bit manipulation
+    // mid vs (mid ^ 1): (1,2), (3, 4), (5, 6).... 
+    public int singleNonDuplicate2(int[] nums) {
+    	int n = nums.length;
+    	int left = 0, right = n - 1;
+    	while (left < right) {
+    		int mid = left + (right - left) / 2;
+    		if (nums[mid] == nums[mid ^ 1])
+    			left = mid + 1;
+    		else 
+    			right = mid;
+    	}
+        return nums[left];
+    }
 	public static void main(String[] args) {
 		SingleElementInASortedArray test = new SingleElementInASortedArray();
 		System.out.println(test.singleNonDuplicate(new int[] {1, 1, 2, 3, 3, 4, 4, 8, 8}));
 		System.out.println(test.singleNonDuplicate(new int[] {3,3,7,7,10,11,11}));
+		System.out.println(test.singleNonDuplicate2(new int[] {1, 1, 2, 3, 3, 4, 4, 8, 8}));
+		System.out.println(test.singleNonDuplicate2(new int[] {3,3,7,7,10,11,11}));
 	}
 }
