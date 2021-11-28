@@ -6,8 +6,7 @@ import java.util.List;
  * 
  * All Paths From Source to Target
  * 
- * Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, 
- * find all possible paths from node 0 to node n - 1, and return them in any order.
+Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths from node 0 to node n - 1, and return them in any order.
 
 The graph is given as follows: graph[i] is a list of all nodes you can visit from node i 
 (i.e., there is a directed edge from node i to node graph[i][j]).
@@ -41,6 +40,7 @@ graph[i][j] != i (i.e., there will be no self-loops).
 The input graph is guaranteed to be a DAG.
  */
 public class AllPathsFromSourcetoTarget {
+	// Graph
 	List<List<Integer>> res = new LinkedList<>();
 	public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
 		LinkedList<Integer> path = new LinkedList<>();
@@ -48,18 +48,29 @@ public class AllPathsFromSourcetoTarget {
 		return res;
 	}
 	public void traverse(int[][] graph, int vertex, LinkedList<Integer> path) {
-		path.add(vertex);
-		
 		int n = graph.length;	
 		if (vertex == n - 1) {
-			res.add(path);
+			path.add(vertex);
+			res.add(new LinkedList<>(path));
 			path.removeLast();
 			return;
 		}
-		for (int v : graph[vertex]) {
-			traverse(graph, v, path);
-		}
-		
+		path.add(vertex);
+		for (int v : graph[vertex])
+			traverse(graph, v, path);		
 		path.removeLast();
+	}
+	public static void main(String[] args) {
+		int[][] graph = {{1, 2}, {3}, {3}, {}};
+		int[][] graph2 = {{4, 3, 1}, {3, 2, 4}, {3}, {4}, {}};
+		int[][] graph3 = {{1}, {}};
+		int[][] graph4 = {{1, 2, 3}, {2}, {3}, {}};
+		int[][] graph5 = {{1, 3}, {2}, {3}, {}};
+		AllPathsFromSourcetoTarget test = new AllPathsFromSourcetoTarget();
+		System.out.println(test.allPathsSourceTarget(graph));
+		System.out.println(test.allPathsSourceTarget(graph2));
+		System.out.println(test.allPathsSourceTarget(graph3));
+		System.out.println(test.allPathsSourceTarget(graph4));
+		System.out.println(test.allPathsSourceTarget(graph5));
 	}
 }
