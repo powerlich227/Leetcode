@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Map;
 
 /*
@@ -14,13 +15,11 @@ Given the root of the binary tree, return the maximum amount of money the thief 
 
 
 Example 1:
-
 Input: root = [3,2,3,null,3,null,1]
 Output: 7
 Explanation: Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
 
 Example 2:
-
 Input: root = [3,4,5,1,3,null,1]
 Output: 9
 Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
@@ -31,11 +30,12 @@ The number of nodes in the tree is in the range [1, 10^4].
 0 <= Node.val <= 10^4
  */
 public class HouseRobberIII {
-	// DP
+	// DP without memo
 	public int rob(TreeNode root) {
 		int[] res = helper(root);
 		return Math.max(res[0], res[1]); // (root, non-root)
 	}
+	// return [root, non-root]
 	public int[] helper(TreeNode root) {
 		if (root == null)
 			return new int[2];
@@ -43,12 +43,13 @@ public class HouseRobberIII {
 		int[] right = helper(root.right);
 		
 		int[] res = new int[2];
-		res[0] = left[1] + right[1] + root.val; // root
-		res[1] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]); // non-root
+		res[0] = left[1] + right[1] + root.val; // rob the root
+		res[1] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]); // not rob the root
 		return res;
 	}
+	
 	// DP with memo
-	Map<TreeNode, Integer> memo;
+	Map<TreeNode, Integer> memo = new HashMap<>();
 	public int rob2(TreeNode root) {
 		if (root == null)
 			return 0;
