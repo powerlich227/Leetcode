@@ -41,10 +41,8 @@ public class ConvertBinaryNumberInALinkedListToInteger {
 	public int getDecimalValue(ListNode head) {
 		int res = 0;
 		while (head != null) {
-			if (head.val != 0) {
-				res = (int) (res * 2 + Math.pow(2, head.val));
-				head = head.next;
-			}
+			res = res * 2 + head.val;
+			head = head.next;
 		}
 		return res;
 	}
