@@ -28,36 +28,16 @@ The number of nodes in the list is in the range [1, 5000].
 -5000 <= Node.val <= 5000
  */
 public class InsertionSortList {
-	
+	// Insertion Sort
+	// three pointer: pre, cur, next
 	public ListNode insertionSortList(ListNode head) {
-//	    // cur: the node will be inserted, next: the next node will be inserted
-//        // find the largest pre for inserting cur
-//	    // insert node between pre and pre.next   
-//	    ListNode dummy = new ListNode(-5001), pre = dummy, cur = head, next = null;
-//	    while (cur != null) {
-//	        next = cur.next;
-//            // reset pre if necessary
-//            if (pre.val >= cur.val)
-//	        	pre = dummy;
-//	        // find the cur node to insert
-//	        while (pre.next != null && pre.next.val <= cur.val) {
-//	            pre = pre.next;
-//	        }
-//	        // insert
-//	        cur.next = pre.next; 
-//	        pre.next = cur; // connect dummy with head in the 1st round
-//	        // update cur & pre
-//	        cur = next;
-//	    }
-//	    return dummy.next;
-		if (head == null)
-			return head;
-		ListNode dummy = new ListNode(-5001), pre = dummy, cur = head, next = null;
+		ListNode dummy = new ListNode(-5001);
+		ListNode pre = dummy, cur = head, next = null;
 		while (cur != null) {
 			next = cur.next;
 			if (pre.val > cur.val)
 				pre = dummy;
-			while (pre.next != null && pre.next.val < cur.val)
+			while (pre.next != null && pre.next.val <= cur.val)
 				pre = pre.next;
 			cur.next = pre.next;
 			pre.next = cur;
@@ -66,8 +46,6 @@ public class InsertionSortList {
 		return dummy.next;
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		
 	}
-
 }
