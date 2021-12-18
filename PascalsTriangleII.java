@@ -33,15 +33,17 @@ public class PascalsTriangleII {
 		System.out.println(test.getRow(0));
 		System.out.println(test.getRow(1));
 	}
-	// dp: res[j] = res[j] + res[j - 1]
+	// recursion
     public List<Integer> getRow(int rowIndex) {
-        List<Integer> res = new ArrayList<>(rowIndex + 1);
-        
-        for (int i = 0; i <= rowIndex; i++) {
-        	res.add(1); // last element of each row
-        	for (int j = i - 1; j > 0; j--)
-        		res.set(j, res.get(j) + res.get(j - 1));
+        List<Integer> res = new ArrayList<>();
+        res.add(1);
+        if (rowIndex == 0)
+        	return res;
+        List<Integer> pre = getRow(rowIndex - 1);
+        for (int i = 0; i < pre.size() - 1; i++) {
+        	res.add(pre.get(i) + pre.get(i + 1));
         }
+        res.add(1);
         return res;
     }
 }
