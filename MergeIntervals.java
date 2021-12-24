@@ -34,17 +34,20 @@ public class MergeIntervals {
 		System.out.println(Arrays.deepToString(test.merge(intervals)));
 		System.out.println(Arrays.deepToString(test.merge(intervals2)));
 	}
+	// Sorting: starti in increasing order
 	public int[][] merge(int[][] intervals) {
-//		if (intervals.length == 0)
-//			return intervals;
-		LinkedList<int[]> res = new LinkedList<>(); 
-		Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
-		for (int[] interval : intervals) {
-			if (res.isEmpty() || res.getLast()[1] < interval[0])
-				res.add(interval);
+		LinkedList<int[]> res = new LinkedList<>();
+		Arrays.sort(intervals, (a, b) -> (a[0] - b[0]));
+		res.add(intervals[0]);
+		for (int i = 1; i < intervals.length; i++) {
+			int[] cur = intervals[i];
+			int[] pre = res.getLast();
+			if (cur[0] <= pre[1])
+				pre[1] = Math.max(pre[1], cur[1]);
 			else
-				res.getLast()[1] = Math.max(res.getLast()[1], interval[1]);
+				res.add(intervals[i]);
 		}
-		return res.toArray(new int[res.size()][]);
+		return res.toArray(new int[0][]);
 	}
 }
+
