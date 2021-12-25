@@ -23,7 +23,6 @@ Output: 23
  
 
 Constraints:
-
 1 <= s.length <= 3 * 10^5
 s consists of digits, '+', '-', '(', ')', and ' '.
 s represents a valid expression.
@@ -34,37 +33,40 @@ Every number and running calculation will fit in a signed 32-bit integer.
  */
 public class BasicCalculator {
 	public int calculate(String s) {
-//		if (s == null || s.isEmpty())
-//			return 0;
+		StringBuilder sb = new StringBuilder(s);
+		return helper(sb);
+	}
+	// stack: '+', '-', '*', '/'
+	// recursion: '(',')'
+	public int helper(StringBuilder s) {
 		Stack<Integer> st = new Stack<>();
-		int m = s.length(), res = 0, sign = 1;
-		for (int i = 0; i < m; i++) {
-			char c = s.charAt(i);
-			if (Character.isDigit(c)) {
-				int cur = 0;
-				while (i < m && Character.isDigit(s.charAt(i))) {
-					cur = cur * 10 + s.charAt(i++) - '0';
+		int n = s.length(), res = 0, num = 0;
+		char sign = '+';
+		while (s.length() > 0) {
+			char c = s.charAt(0);
+			s.deleteCharAt(0);
+			if (Character.isDigit(c))
+				num = 10 * num + (c - '0');
+			if (c == '(')
+				num = helper(s);
+			if ((!Character.isDigit(c) && c != ' ') || s.length() == 0) {
+				switch(sign) {
+					case '+':
+						st.push(num);
+						break;
+					case '-':
+						st.push(-num);
+						break;
 				}
-				res += sign * cur;
-				i--;
+				sign = c;
+				num = 0;
 			}
-			else if (c == '+') {
-				sign = 1;
-			}
-			else if (c == '-') {
-				sign = -1;
-			}
-			else if (c == '(') {
-				st.push(res);
-				st.push(sign);
-				res = 0;
-				sign = 1;
-			}
-			else if (c == ')') {
-				res *= st.pop();
-				res += st.pop();
-			}
+			if (c == ')')
+				break;
 		}
+		while (!st.isEmpty())
+			res += st.pop();
+		
 		return res;
 	}
 	public static void main(String[] args) {
