@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,62 +44,53 @@ ai != bi
 All the pairs [ai, bi] are distinct.
  */
 public class CourseScheduleII {
-	
-	static int WHITE = 1;
-	static int GRAY = 2;
-	static int BLACK = 3;
-	
-	boolean isPossible;
-	Map<Integer, Integer> color;
-	Map<Integer, List<Integer>> adjList;
-	List<Integer> topologicalOrder;
-	
-	private void init(int numCourses) {
-		isPossible = true;
-		color = new HashMap<>();
-		adjList = new HashMap<>();
-		topologicalOrder = new ArrayList<>();
-		
-		for (int i = 0; i < numCourses; i++) {
-			color.put(i, WHITE);
-		}
-	}
-	private void dfs(int node) {
-		if (!isPossible)
-			return;
-		color.put(node, GRAY);
-		
-		for (Integer neighbor : adjList.getOrDefault(node, new ArrayList<>())) {
-			if (color.get(neighbor) == WHITE)
-				dfs(neighbor);
-			else if (color.get(neighbor) == GRAY)
-				isPossible = false;
-		}
-	}
+	// Topological Sorting
+	// DFS
+	boolean hasCycle;
+	boolean[] visited, onPath;
+	List<Integer> postOrder = new ArrayList<>();
 	public int[] findOrder(int numCourses, int[][] prerequisites) {
-		init(numCourses);
-		for (int i = 0; i < prerequisites.length; i++) {
-			int cur = prerequisites[i][0];
-			int pre = prerequisites[i][1];
-			List<Integer> lst = adjList.getOrDefault(pre, new ArrayList<>());
-			lst.add(cur);
-			adjList.put(pre, lst);
-		}
-		for (int i = 0; i < numCourses; i++) {
-			if (color.get(i) == WHITE)
-				dfs(i);
-		}
-		
-		int[] res;
-		if (isPossible) {
-			res = new int[numCourses];
-			for (int i = 0; i < numCourses; i++) {
-				res[i] = topologicalOrder.get(numCourses - i - 1);
-			}
-		}
-		else
-			res = new int[0];
-					
+		List<Integer>[] graph = buildGraph(numCourses, prerequisites);
+		visited = new boolean[numCourses];
+		onPath = new boolean[numCourses];
+		for (int i = 0; i < numCourses; i++)
+			traversal(graph, i);
+		if (hasCycle)
+			return new int[] {};
+		Collections.reverse(postOrder);
+		int[] res = new int[numCourses];
+		for (int i = 0; i < numCourses; i++)
+			res[i] = postOrder.get(i);
 		return res;
+	}
+	public List<Integer>[] buildGraph(int numCourses, int[][] prerequisites) {
+		List<Integer>[] graph = new ArrayList[numCourses];
+		for (int i = 0; i < numCourses; i++)
+			graph[i] = new ArrayList<>();
+		for (int[] pre : prerequisites) {
+			int from = pre[1], to = pre[0];
+			graph[from].add(to);
+		}
+		return graph;
+	}
+	// DFS
+	public void traversal(List<Integer>[] graph, int v) {
+		if (onPath[v])
+			hasCycle = true;
+		if (visited[v])
+			return;
+		visited[v] = true;
+		onPath[v] = true;
+		for (int i : graph[v])
+			traversal(graph, i);
+		postOrder.add(v);
+		onPath[v] = false;
+	}
+	public static void main(String[] args) {
+		int pre[][] = {{1, 0}};
+		int pre2[][] = {{1, 0}, {2, 0}, {3, 1}, {3, 2}};
+		CourseScheduleII test = new CourseScheduleII();
+		System.out.println(Arrays.toString(test.findOrder(2, pre)));
+		System.out.println(Arrays.toString(test.findOrder(2, pre)));
 	}
 }
