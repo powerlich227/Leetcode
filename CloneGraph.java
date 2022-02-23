@@ -59,9 +59,10 @@ The Graph is connected and all nodes can be visited starting from the given node
 public class CloneGraph {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		
 	}
+	// DFS
+	// HashMap <origin node, clone node>
     public Node cloneGraph(Node node) {
         HashMap<Node, Node> map = new HashMap<>();
         return dFS(node, map);
