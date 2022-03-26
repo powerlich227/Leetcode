@@ -42,20 +42,18 @@ public class CopyListWithRandomPointer {
 	public static void main(String[] args) {
 		System.out.println();
 	}
+	// Map<original node, copied node)
+	// traversal
+	Map<Node, Node> map = new HashMap<>();
 	public Node copyRandomList(Node head) {
-		Map<Node, Node> map = new HashMap<>();
-		return helper(head, map);
-	}
-	public Node helper(Node node, Map<Node, Node> map) {
-		if (node == null)
+		if (head == null)
 			return null;
-		if (map.containsKey(node))
-			return map.get(node);
-		Node res = new Node(node.val);
-		map.put(node, res);
-		res.next = helper(node.next, map);
-		res.random = helper(node.random, map);
+		if (map.containsKey(head))
+			return map.get(head);
+		Node res = new Node(head.val);
+		map.put(head, res);
+		res.next = copyRandomList(head.next);
+		res.random = copyRandomList(head.random);
 		return res;
 	}
-	
 }
