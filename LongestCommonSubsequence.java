@@ -32,6 +32,11 @@ Constraints:
 text1 and text2 consist of only lowercase English characters.
  */
 public class LongestCommonSubsequence {
+	// DP with 2D array
+	// dp[i][j]: LCS of text1[0...i] and text2[0...j]
+	// dp[0][0] = 0, base case
+	// dp[i][j] = dp[i - 1][j - 1] + 1 when text[i-1] = text[j-1]
+	// dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 	public int longestCommonSubsequence(String text1, String text2) {
         int m = text1.length(), n = text2.length();
         int[][] dp = new int[m + 1][n + 1];
