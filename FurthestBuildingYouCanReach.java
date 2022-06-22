@@ -52,7 +52,7 @@ public class FurthestBuildingYouCanReach {
 			pq.offer(diff);
 			if (pq.size() <= ladders)
 				continue;
-			bricks -= diff;
+			bricks -= pq.poll();
 			if (bricks < 0)
 				return i - 1;
 		}
