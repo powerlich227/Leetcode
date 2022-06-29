@@ -1,12 +1,11 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.LinkedList;
 
 /*
  * LeetCode 406 Medium
  * 
  * Queue Reconstruction by Height
+ * 
 You are given an array of people, people, which are the attributes of some people in a queue (not necessarily in order).
 Each people[i] = [hi, ki] represents the ith person of height hi with exactly ki other people in front who have a height greater than or equal to hi.
 
@@ -27,38 +26,37 @@ Person 4 has height 4 with four people taller or the same height in front, which
 Person 5 has height 7 with one person taller or the same height in front, which is person 1.
 Hence [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]] is the reconstructed queue.
 
+Example 2:
+Input: people = [[6,0],[5,0],[4,0],[3,2],[2,2],[1,4]]
+Output: [[4,0],[5,0],[2,2],[3,2],[1,4],[6,0]]
+
 1 <= people.length <= 2000
-0 <= hi <= 106
+0 <= hi <= 10^6
 0 <= ki < people.length
 It is guaranteed that the queue can be reconstructed.
  */
 public class QueueReconstructionbyHeight {
-	public static int[][] reconstructQueue(int[][] people) {
+	// Greedy: insert peoper from max height to min height
+	// Sort: height in descending
+	public int[][] reconstructQueue(int[][] people) {
 		Arrays.sort(people, (a, b) -> {
 			if (a[0] == b[0])
 				return a[1] - b[1];
 			return b[0] - a[0];
 		});
 		
-		List<int[]> temp = new ArrayList<>();
-		for (int[] p : people) {
-			temp.add(p[1], p);
-		}
-		int[][] res = temp.toArray(new int[0][0]);
-//		int[][] res = new int[people.length][2];
-//		for (int i = 0; i < temp.size(); i++) {
-//			res[i][0] =	temp.get(i)[0];
-//			res[i][1] = temp.get(i)[1];
-//		}
-		return res;
+		LinkedList<int[]> list = new LinkedList<>();
+		for (int[] p : people) 
+			list.add(p[1], p);
+
+		return list.toArray(new int[0][0]);
 	}
 	
 	public static void main(String[] args) {
 		int[][] people = {{7,0}, {4, 4}, {7, 1}, {5, 0}, {6, 1}, {5, 2}};
-		for (int[] i : reconstructQueue(people)) {
-			for (int j : i) 
-				System.out.println(j);
-		}
+		int[][] people2 = {{6,0}, {5, 0}, {4, 0}, {3, 2}, {2, 2}, {1, 4}};
+		QueueReconstructionbyHeight test = new QueueReconstructionbyHeight();
+		System.out.println(Arrays.deepToString(test.reconstructQueue(people)));
+		System.out.println(Arrays.deepToString(test.reconstructQueue(people2)));
 	}
-
 }
