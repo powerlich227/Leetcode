@@ -22,9 +22,14 @@ Example 3:
 Input: nums = [7,7,7,7,7,7,7]
 Output: 1
 
+Constraints:
+1 <= nums.length <= 2500
+-104 <= nums[i] <= 104
+ 
+Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?
  */
 public class LongestIncreasingSubsequence {
-	// dp + binarySearch
+	// dp + binarySearch (follow-up)
 	// return length of "non-zero" dp array
 	public int lengthOfLIS(int[] nums) {
 		int[] dp = new int[nums.length];
