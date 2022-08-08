@@ -26,7 +26,7 @@ Output: 1
 public class LongestIncreasingSubsequence {
 	// dp + binarySearch
 	// return length of "non-zero" dp array
-	public static int lengthOfLIS(int[] nums) {
+	public int lengthOfLIS(int[] nums) {
 		int[] dp = new int[nums.length];
 		int res = 0;
 		for (int num : nums) {
@@ -40,9 +40,34 @@ public class LongestIncreasingSubsequence {
 		return res;
 	}
 	
-	public static void main(String[] args) {
-		int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
-		System.out.println(lengthOfLIS(nums));
+	// dp:
+	// dp[i]: length of LIS end with nums[i];
+	public int lengthOfLIS2(int[] nums) {
+		int n = nums.length;
+		int[] dp = new int[n];
+		Arrays.fill(dp, 1);
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < i; j++) {
+				if (nums[j] < nums[i])
+					dp[i] = Math.max(dp[i], dp[j] + 1);
+			}
+		}
+		int res = 0;
+		for (int d : dp)
+			res = Math.max(res, d);
+		return res;
 	}
-
+	public static void main(String[] args) {
+		LongestIncreasingSubsequence test = new LongestIncreasingSubsequence();
+		
+		int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
+		int[] nums2 = {0, 1, 0, 3, 2, 3};
+		int[] nums3 = {7, 7, 7, 7, 7, 7, 7};
+		System.out.println(test.lengthOfLIS(nums));
+		System.out.println(test.lengthOfLIS(nums2));
+		System.out.println(test.lengthOfLIS(nums3));
+		System.out.println(test.lengthOfLIS2(nums));
+		System.out.println(test.lengthOfLIS2(nums2));
+		System.out.println(test.lengthOfLIS2(nums3));
+	}
 }
