@@ -1,5 +1,5 @@
 /*
- * LeetCode 19 Meidum
+ * LeetCode 19 Medium
  * 
  * Remove Nth Node From End of List
  * 
@@ -27,12 +27,29 @@ Follow up: Could you do this in one pass?
  */
 public class RemoveNthNodeFromEndOfList {
 	public static void main(String[] args) {
-		
+		RemoveNthNodeFromEndOfList test = new RemoveNthNodeFromEndOfList();
 	}
 	// Two Pointers, pre and cur
 	// cur: to end
 	// pre: to n + 1 from end of list
 	public ListNode removeNthFromEnd(ListNode head, int n) {
+		ListNode dummy = new ListNode(-1);
+		dummy.next = head;
+		ListNode x = findFromEnd(dummy, n + 1);
+		x.next = x.next.next;
+		return dummy.next;
+	}
+	ListNode findFromEnd(ListNode head, int n) {
+		ListNode p1 = head, p2 = head;
+		for (int i = 0; i < n; i++)
+			p1 = p1.next;
+		while (p1 != null) {
+			p1 = p1.next;
+			p2 = p2.next;
+		}
+		return p2;
+	}
+	public ListNode removeNthFromEnd2(ListNode head, int n) {
 		if (head == null || head.next == null)
 			return null;
 		ListNode pre = head, cur = head;
